@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
+            $table->id('category_id');
             $table->string('name', 255);
             $table->integer('parent_id')->default(null); //Dùng để tạo danh mục con
             $table->foreign('parent_id')->references('id')->on('categories');
+            $table->text('description')->nullable();
             // $table->timestamps();
         });
     }
