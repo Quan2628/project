@@ -14,11 +14,14 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id('cart_id');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('product_id')->constrained('products');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
         DB::statement('ALTER TABLE carts ADD CONSTRAINT ck_price CHECK (price>=0)');
     }

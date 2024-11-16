@@ -14,12 +14,15 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id('orderDetail_id');
-            $table->foreignId('order_id')->constrained('orders');
-            $table->foreignId('product_id')->constrained('products');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 2);
             $table->decimal('total_price', 10, 2);
             // $table->timestamps();
+
+            $table->foreign('order_id')->references('order_id')->on('orders');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
         DB::statement('ALTER TABLE order_details ADD CONSTRAINT ck_unit_price CHECK (unit_price>=0)');
         DB::statement('ALTER TABLE order_details ADD CONSTRAINT ck_total_price CHECK (total_price>=0)');

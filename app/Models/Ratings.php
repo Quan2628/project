@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Ratings extends Model
 {
     //
+    protected $table = 'ratings';
     protected $fillable = [
         'product_id', 'user_id', 'rating', 'review'
     ];
+    public $timestamp = false;
 
     public function product()
     {

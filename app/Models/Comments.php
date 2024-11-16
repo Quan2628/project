@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Comments extends Model
 {
     //
+    protected $table = 'comments';
     protected $fillable = [
         'product_id', 'user_id', 'comment', 'parent_id'
     ];
+    public $timestamp = false;
 
     // Quan hệ với sản phẩm
     public function product()

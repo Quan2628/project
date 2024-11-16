@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id('comment_id');
-            $table->foreignId('product_id')->constrained('products');  // Khóa ngoại tới bảng products
-            $table->foreignId('user_id')->constrained('users');  // Khóa ngoại tới bảng users
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             $table->text('comment');  // Nội dung bình luận
             $table->unsignedBigInteger('parent_id')->nullable(); // ID bình luận cha
             $table->foreign('parent_id')->references('comment_id')->on('comments');
             // $table->timestamps();
+            
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
     }
 
